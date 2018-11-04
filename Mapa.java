@@ -12,7 +12,7 @@ public class Mapa extends Canvas implements Runnable{
 	public boolean running = false;
 
 	public Reloj tiempo;
-	public int rate = 60;
+	private int rate;
 
 	public Mapa(){
 		tiempo = new Reloj();
@@ -75,21 +75,29 @@ public class Mapa extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-
+		
 		BufferedImage img = null;
 		try {
   			img = ImageIO.read(new File("mapa_prototipo.png"));
 		} 
 		catch (IOException e) {
 		}
-
-		g.setColor(Color.black);
-
 		g.drawImage(img, 0, 0, Ventana.width *3/4, Ventana.height, null);
+		
+		g.setColor(Color.black);
+		
 		g.drawString("hora: " + tiempo.toString(), 500, 75);
 		
 		g.dispose();
 		bs.show();
+	}
+
+	public void setRate(int rate){
+		this.rate = rate;
+	}
+
+	public int getRate(){
+		return rate;
 	}
 	
 }
