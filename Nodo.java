@@ -1,15 +1,21 @@
-public class Nodo {
+import java.util.LinkedList;
+
+public class Nodo{
 
 	private String nombre;
 	private boolean entrada;
 	private boolean salida;
+	private int x, y;
+	private LinkedList<Arista> aristas;
 	//private Registro registro;
 
 
-	public Nodo(String nombre, boolean entrada, boolean salida) {
+	public Nodo(String nombre, boolean entrada, boolean salida, int x, int y) {
 		this.nombre = nombre;
 		this.entrada = entrada;
 		this.salida = salida;
+		this.x = x;
+		this.y = y;
 	}
 
 	public String getNombre () {
@@ -37,5 +43,21 @@ public class Nodo {
 	}
 
 
+	public void setX(int x){
+		this.x = x;
+	}
+	public int getX(){
+		return x;
+	}
+	public void setY(int y){
+		this.y = y;
+	}
+	public int getY(){
+		return y;
+	}
+
+	public void addArista(Nodo n, double peso){
+		aristas.add(new Arista(n, peso));
+	}
 
 }
