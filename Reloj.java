@@ -5,6 +5,7 @@ public class Reloj{
 	public Reloj(){
 		hora = 0;
 		minuto = 0;
+
 	}
 
 	public Reloj(int hora, int minuto){
