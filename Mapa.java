@@ -53,14 +53,13 @@ public class Mapa extends Canvas implements Runnable{
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
 				segundos++;
+				segundos = segundos * rate;
+				tiempo.setSegundo(segundos);
+				if(segundos >= 60){
+					segundos = 0;
+				}
 				System.out.println("FPS: " + frames);
 				frames = 0;
-			}
-			if(segundos == (60 / rate)){
-				int minuto = tiempo.getMinuto();
-				minuto++;
-				tiempo.setMinuto(minuto);
-				segundos = 0;
 			}
 		}
 	}

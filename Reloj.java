@@ -1,6 +1,7 @@
 public class Reloj{
 	private int hora;
 	private int minuto;
+	private int segundo;
 
 	public Reloj(){
 		hora = 0;
@@ -8,9 +9,10 @@ public class Reloj{
 
 	}
 
-	public Reloj(int hora, int minuto){
+	public Reloj(int hora, int minuto, int segundo){
 		this.hora = hora;
 		this.minuto = minuto;
+		this.segundo = segundo;
 	}
 
 	public void setHora(int hora){
@@ -31,12 +33,24 @@ public class Reloj{
 		this.minuto = minuto;
 	}
 
+	public void setSegundo(int segundo){
+		if(segundo >= 60){
+			segundo = 0;
+			minuto++;
+		}
+		this.segundo = segundo;
+	}
+
 	public int getHora(){
 		return hora;
 	}
 
 	public int getMinuto(){
 		return minuto;
+	}
+
+	public int getSegunfo(){
+		return segundo;
 	}
 
 	public String toString(){
