@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class Nodo{
+public class Vertice{
 
 	private String nombre;
 	private boolean entrada;
@@ -10,7 +10,7 @@ public class Nodo{
 	//private Registro registro;
 
 
-	public Nodo(String nombre, boolean entrada, boolean salida, int x, int y) {
+	public Vertice(String nombre, boolean entrada, boolean salida, int x, int y) {
 		this.nombre = nombre;
 		this.entrada = entrada;
 		this.salida = salida;
@@ -56,8 +56,12 @@ public class Nodo{
 		return y;
 	}
 
-	public void addArista(Nodo n, double peso){
+	public void addEdge(Nodo n, double peso){
 		aristas.add(new Arista(n, peso));
+	}
+
+	public voir removeEdge(Arista a){
+		aristas.remove(a);
 	}
 
 }

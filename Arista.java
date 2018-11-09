@@ -1,13 +1,13 @@
 public class Arista{
-	private Nodo destino;
+	private Vertice destino;
 	private double peso;
 
-	public Arista(Nodo destino, int peso){
+	public Arista(Vertice destino, int peso){
 		this.destino = destino;
 		this.peso = peso;
 	}
 
-	public void setDestino(Nodo destino){
+	public void setDestino(Vertice destino){
 		this.destino = destino;
 	}
 
@@ -15,7 +15,7 @@ public class Arista{
 		this.peso = peso;
 	}
 
-	public Nodo getDestino(){
+	public Vertice getDestino(){
 		return destino;
 	}
 
