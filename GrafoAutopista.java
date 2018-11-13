@@ -6,9 +6,13 @@ public class GrafoAutopista{
 
 	public GrafoAutopista(){
 		vertices = new LinkedList<Vertice>();
+		buildAutopista();
 	}
 
 	private void buildAutopista(){
+
+		Vertice v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21;
+
 		v1 = new Vertice("Cuernavaca", true, true, 405, 545);
 		v2 = new Vertice("Xochimilco", true, true, 475, 510);
 		v3 = new Vertice("Tlalpan", false, true, 440, 492);
@@ -43,56 +47,56 @@ public class GrafoAutopista{
 		v4.addEdge(v5, 94);
 
 		v5.addEdge(v4, 94);
-		v5.addEdge(v6, 81);
+		v5.addEdge(v6, 63);
 
-		v6.addEdge(v5, 81);
-		v6.addEdge(v7, 86);
+		v6.addEdge(v5, 63);
+		v6.addEdge(v7, 81);
 
-		v7.addEdge(v6, 86);
-		v7.addEdge(v8, 72);
+		v7.addEdge(v6, 81);
+		v7.addEdge(v8, 86);
 
-		v8.addEdge(v7, 72);
-		v8.addEdge(v9, 0);
+		v8.addEdge(v7, 86);
+		v8.addEdge(v9, 72);
 
-		v9.addEdge(v8,0);
-		v9.addEdge(v10,0);
-		v9.addEdge(v15,0);
+		v9.addEdge(v8, 72);
+		v9.addEdge(v10,23);
+		v9.addEdge(v15,40);
 
-		v10.addEdge(v9,0);
-		v10.addEdge(v11,0);
+		v10.addEdge(v9, 23);
+		v10.addEdge(v11,59);
 
-		v11.addEdge(v10,0);
-		v11.addEdge(v12,0);
+		v11.addEdge(v10,59);
+		v11.addEdge(v12,113);
 
-		v12.addEdge(v11,0);
-		v12.addEdge(v13,0);
+		v12.addEdge(v11,113);
+		v12.addEdge(v13,63);
 
-		v13.addEdge(v12,0);
-		v13.addEdge(v14,0);
+		v13.addEdge(v12,63);
+		v13.addEdge(v14,72);
 
-		v14.addEdge(v13,0);
+		v14.addEdge(v13,72);
 		
-		v15.addEdge(v09,0);
-		v15.addEdge(v16,0);
+		v15.addEdge(v9,40);
+		v15.addEdge(v16,34);
 
-		v16.addEdge(v15,0);
-		v16.addEdge(v17,0);
+		v16.addEdge(v15,34);
+		v16.addEdge(v17,266);
 
-		v17.addEdge(v16,0);
-		v17.addEdge(v18,0);
+		v17.addEdge(v16,266);
+		v17.addEdge(v18,225);
 
-		v18.addEdge(v17,0);
-		v18.addEdge(v19,0);
+		v18.addEdge(v17,225);
+		v18.addEdge(v19,63);
 
-		v19.addEdge(v18,0);
-		v19.addEdge(v20,0);
+		v19.addEdge(v18,63);
+		v19.addEdge(v20,117);
 
-		v20.addEdge(v19,0);
-		v20.addEdge(v21,0);
+		v20.addEdge(v19,117);
+		v20.addEdge(v21,45);
 
-		v21.addEdge(v20,0);
+		v21.addEdge(v20,45);
 
-		addVertex(v1, );
+		addVertex(v1);
 		addVertex(v2);
 		addVertex(v3);
 		addVertex(v4);
@@ -123,4 +127,11 @@ public class GrafoAutopista{
 		vertices.remove(v);
 	}
 
+	public Vertice getVertex(int i){
+		return vertices.get(i);
+	}
+
+	public int getSize(){
+		return vertices.size();
+	}
 }

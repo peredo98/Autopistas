@@ -13,9 +13,11 @@ public class Mapa extends Canvas implements Runnable{
 
 	public Reloj tiempo;
 	private int rate;
+	public GrafoAutopista au;
 
 	public Mapa(){
 		tiempo = new Reloj();
+		au = new GrafoAutopista();
 	}
 	public synchronized void start(){
 		thread = new Thread(this);

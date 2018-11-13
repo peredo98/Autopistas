@@ -16,6 +16,7 @@ public class Vertice{
 		this.salida = salida;
 		this.x = x;
 		this.y = y;
+		aristas = new LinkedList<Arista>();
 	}
 
 	public String getNombre () {
@@ -56,11 +57,11 @@ public class Vertice{
 		return y;
 	}
 
-	public void addEdge(Nodo n, double peso){
+	public void addEdge(Vertice n, double peso){
 		aristas.add(new Arista(n, peso));
 	}
 
-	public voir removeEdge(Arista a){
+	public void removeEdge(Arista a){
 		aristas.remove(a);
 	}
 

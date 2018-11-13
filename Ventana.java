@@ -9,13 +9,16 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import java.util.Hashtable;
+import javax.swing.JComboBox;
+
 public class Ventana extends Canvas implements ActionListener, ChangeListener{
 
-	private JButton b;
+	private JButton b, b2;
 	private Mapa map;
 	private JFrame frame;
-	private JLabel image, l1;
+	private JLabel image, l1, l2, l3, l4;
 	private JSlider slider;
+	private JComboBox de, a;
 
 	private static String title = "Autopistas";
 	public static int width = 800;
@@ -29,6 +32,12 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener{
 		image = new JLabel();
 		l1 = new JLabel("time speed:");
 		slider = new JSlider(1, 8);
+		l2 = new JLabel("crear auto:");
+		l3 = new JLabel("De:");
+		l4 = new JLabel("A:");
+		de = new JComboBox();
+		a = new JComboBox();
+		b2 = new JButton("Generar Auto");
 
 		this.map = map;
 		map.setRate(6);
@@ -43,6 +52,32 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener{
 		
 		l1.setBounds((width * 3 / 4) + 25, 67, 100, 15);
 		frame.add(l1);
+
+		l2.setBounds((width * 3 / 4) + 25, 167, 100, 15);
+		frame.add(l2);
+
+		l3.setBounds((width * 3 / 4) + 25, 187, 100, 15);
+		frame.add(l3);
+
+		de.setBounds((width * 3 / 4) + 50, 187, 100, 20);
+		a.setBounds((width * 3 / 4) + 50, 212, 100, 20);
+		for(int i = 0; i<map.au.getSize(); i++){
+			if(map.au.getVertex(i).getEntrada()){
+				de.addItem(map.au.getVertex(i).getNombre());
+			}
+			if(map.au.getVertex(i).getSalida()){
+				a.addItem(map.au.getVertex(i).getNombre());
+			}
+		}
+		frame.add(de);
+		frame.add(a);
+
+		b2.setBounds((width * 3 / 4) + 25, 240, 150, 25);
+		frame.add(b2);
+		b2.addActionListener(this);
+
+		l4.setBounds((width * 3 / 4) + 25, 212, 100, 15);
+		frame.add(l4);
 
 		slider.setBounds((width * 3 / 4) + 25, 80, 150, 50);
 		Hashtable<Integer, JLabel> table = new Hashtable<Integer, JLabel>();

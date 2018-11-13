@@ -2,7 +2,7 @@ public class Arista{
 	private Vertice destino;
 	private double peso;
 
-	public Arista(Vertice destino, int peso){
+	public Arista(Vertice destino, double peso){
 		this.destino = destino;
 		this.peso = peso;
 	}
