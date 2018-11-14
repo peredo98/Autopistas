@@ -116,7 +116,7 @@ public class GrafoAutopista{
 		addVertex(v18);
 		addVertex(v19);
 		addVertex(v20);
-		addVertex(v21);		
+		addVertex(v21);
 	}
 
 	public void addVertex(Vertice v){
@@ -133,5 +133,52 @@ public class GrafoAutopista{
 
 	public int getSize(){
 		return vertices.size();
+	}
+
+	public double [][] getMatrizDeAdyacencia(){
+		double [][] matriz = new double [getSize()][getSize()];
+		for(int i = 0; i < getSize(); i++){
+			for(int j = 0; j < getVertex(i).getEdgeSize(); j++){
+				for(int k = 0; k < getSize(); k++){
+					if(getVertex(i).getEdge(j).getDestino() == getVertex(k)){
+						matriz [i][k] = getVertex(i).getEdge(j).getPeso();
+					}
+					else if(matriz[i][k] == 0){
+						matriz[i][k] = Double.MAX_VALUE;
+					}
+				}
+			}
+		}
+		return matriz;
+	}
+
+	/*public void printMatrix(double [][] matrix){
+		for (int i = 0; i < matrix.length; i++) {
+		    for (int j = 0; j < matrix[i].length; j++) {
+		        System.out.print(matrix[i][j] + "   ");
+		    }
+		    System.out.println();
+		}
+	}*/
+
+	public LinkedList<Vertice> dijkstra(Vertice origen, Vertice destino) {
+		LinkedList<Vertice> camino = new LinkedList<Vertice>();
+		double distancia = Double.MAX_VALUE;
+		Vertice nodo = origen;
+		boolean fin = true;
+		camino.add(nodo);
+		/*while(fin) {
+			if(this.floydC[nodo][destino]<distancia) {
+			    /*El metodo siguiente(nodo, destino), nos devuelve
+			    el siguiente nodo a visitar
+				nodo = this.siguiente(nodo, destino);
+				camino.add(nodo);
+			}
+			  
+			if(nodo == destino) {
+				fin=false;
+			}
+		}*/
+		return camino;
 	}
 }

@@ -65,4 +65,12 @@ public class Vertice{
 		aristas.remove(a);
 	}
 
+	public Arista getEdge(int i){
+		return aristas.get(i);
+	}
+
+	public int getEdgeSize(){
+		return aristas.size();
+	}
+
 }
