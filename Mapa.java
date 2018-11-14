@@ -94,6 +94,7 @@ public class Mapa extends Canvas implements Runnable{
 		
 		g.setColor(Color.black);
 		
+		g.drawString("Fecha: " + tiempo.getFecha().toString(), 500, 50);
 		g.drawString("hora: " + tiempo.toString(), 500, 75);
 
 		g.setColor(Color.red);

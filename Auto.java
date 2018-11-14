@@ -131,7 +131,7 @@ public class Auto{
 	}
 
 	public void setHoraEntrada(Reloj hora){
-		horaEntrada = new Reloj (hora.getHora(), hora.getMinuto(), hora.getSegundo());
+		horaEntrada = new Reloj (hora.getHora(), hora.getMinuto(), hora.getSegundo(), hora.getFecha());
 	}
 
 }

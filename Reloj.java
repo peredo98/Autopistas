@@ -2,14 +2,18 @@ public class Reloj{
 	private int hora;
 	private int minuto;
 	private int segundo;
+	private Fecha fecha;
 
 	public Reloj(){
 		hora = 0;
 		minuto = 0;
+		segundo = 0;
 
+		fecha = new Fecha(1, 1, 18);
 	}
 
-	public Reloj(int hora, int minuto, int segundo){
+	public Reloj(int hora, int minuto, int segundo, Fecha fecha){
+		this.fecha = fecha;
 		this.hora = hora;
 		this.minuto = minuto;
 		this.segundo = segundo;
@@ -17,6 +21,7 @@ public class Reloj{
 
 	public void setHora(int hora){
 		if(hora >= 24){
+			fecha.setDia(fecha.getDia() + 1);
 			hora = 0;
 		}
 		this.hora = hora;
@@ -53,6 +58,14 @@ public class Reloj{
 		return segundo;
 	}
 
+	public Fecha getFecha(){
+		return fecha;
+	}
+
+	public void setFecha(Fecha fecha){
+		this.fecha = fecha;
+	}
+
 	public String toString(){
 		String hora = "" + this.hora;
 		if (this.hora < 10){
@@ -70,6 +83,6 @@ public class Reloj{
 		int h = hora.getHora() - restar.getHora();
 		int m = hora.getMinuto() - restar.getMinuto();
 		int s = hora.getSegundo() - restar.getSegundo();
-		return new Reloj(h, m, s);
+		return new Reloj(h, m, s, hora.getFecha());
 	}
 }
