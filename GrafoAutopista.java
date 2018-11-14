@@ -117,6 +117,10 @@ public class GrafoAutopista{
 		addVertex(v19);
 		addVertex(v20);
 		addVertex(v21);
+
+		System.out.println("prueba");
+
+		printDijkstra(v15, v18);
 	}
 
 	public void addVertex(Vertice v){
@@ -133,6 +137,10 @@ public class GrafoAutopista{
 
 	public int getSize(){
 		return vertices.size();
+	}
+
+	public int getIndex(Vertice v){
+		return vertices.indexOf(v);
 	}
 
 	public double [][] getMatrizDeAdyacencia(){
@@ -152,33 +160,137 @@ public class GrafoAutopista{
 		return matriz;
 	}
 
-	/*public void printMatrix(double [][] matrix){
+	public void printMatrix(double [][] matrix){
 		for (int i = 0; i < matrix.length; i++) {
 		    for (int j = 0; j < matrix[i].length; j++) {
 		        System.out.print(matrix[i][j] + "   ");
 		    }
 		    System.out.println();
 		}
-	}*/
+	}
+
+	public void printDijkstra(Vertice origen, Vertice destino){
+		for (Vertice v : dijkstra(origen, destino)) {
+			System.out.println(v.getNombre());
+		}
+	}
 
 	public LinkedList<Vertice> dijkstra(Vertice origen, Vertice destino) {
+
+		//basado en https://www.lawebdelprogramador.com/codigo/Java/3557-Codigo-de-la-ruta-mas-corta-DIJKSTRA.html
+
 		LinkedList<Vertice> camino = new LinkedList<Vertice>();
-		double distancia = Double.MAX_VALUE;
-		Vertice nodo = origen;
-		boolean fin = true;
-		camino.add(nodo);
-		/*while(fin) {
-			if(this.floydC[nodo][destino]<distancia) {
-			    /*El metodo siguiente(nodo, destino), nos devuelve
-			    el siguiente nodo a visitar
-				nodo = this.siguiente(nodo, destino);
-				camino.add(nodo);
-			}
-			  
-			if(nodo == destino) {
-				fin=false;
-			}
-		}*/
+
+		int[] previo = new int[getSize()];
+        for (int i = 0; i < previo.length; i++) {
+            previo[i] = -1;
+        }
+
+        double [][] matriz = getMatrizDeAdyacencia();
+
+		LinkedList<Vertice> listVertVisitados = new LinkedList<Vertice>();
+		for (Vertice v : vertices) {
+            listVertVisitados.add(v);
+        }
+		
+		int posOrigen = getIndex(origen);
+		int posFin = getIndex(destino);
+
+		for (int i = 0;i<matriz.length; i++) {
+			matriz[i][i] = Double.MAX_VALUE;
+		}
+
+		matriz[posOrigen][posOrigen] = 0;
+
+		BuscarCaminoMasCorto(origen, destino, matriz, listVertVisitados, previo);
+		camino = ConstruirCamino(previo, origen, destino);
+		
 		return camino;
+	}
+
+	private int[] BuscarCaminoMasCorto(Vertice actual, Vertice destino, double [][] matriz, LinkedList<Vertice> listVertVisitados, int [] previo){
+		if(actual == destino || listVertVisitados.isEmpty()){
+			return previo;
+		}
+		else{
+			double suma;
+            double min;
+            double aux = Double.MAX_VALUE;
+            int temp = 0;
+            int posActual = getIndex(actual);
+
+            for (Vertice v : ListVertDestino(actual)) {
+				int posAdy = getIndex(v);
+
+				suma = matriz[posActual][posActual] + matriz[posActual][posAdy];
+				if (matriz[posAdy][posAdy] < suma) {
+					min = matriz[posAdy][posAdy];
+				}
+				else {
+					min = suma;
+				}
+				if (matriz[posAdy][posAdy] != min) {
+					matriz[posAdy][posAdy] = min;
+					previo[posAdy] = posActual;
+				}
+			}
+
+			for (Vertice v : vertices) {
+				if(v == actual){
+					for (int i = 0; i < listVertVisitados.size(); i++) {
+						if (getVertex(i) == v) {
+							listVertVisitados.remove(getVertex(i));
+							break;
+						}
+					}
+					break;
+				}
+			}
+
+			for (Vertice v : listVertVisitados) {
+				int posV = getIndex(v);
+				if (matriz[posV][posV] <= aux) {
+					aux = matriz[posV][posV];
+					temp = posV;
+				}
+			}
+
+
+			System.out.println(getVertex(temp).getNombre());
+
+			return BuscarCaminoMasCorto(getVertex(temp), destino, matriz, listVertVisitados, previo);
+		}	
+	}
+
+	private LinkedList<Vertice> ListVertDestino(Vertice origen) {
+        LinkedList<Vertice> listdestino = new LinkedList<>();
+
+        double [][] matriz_adyac = getMatrizDeAdyacencia();
+ 
+        for (int i = 0; i < matriz_adyac.length; i++) {
+        	int posOrigen = getIndex(origen);
+            if (matriz_adyac[posOrigen][i] != Double.MAX_VALUE) {
+                listdestino.add(vertices.get(i));
+            }
+        }
+    	return listdestino;
+	}
+
+	private LinkedList<Vertice> ConstruirCamino(int [] previo, Vertice origen, Vertice destino){
+		LinkedList<Vertice> aux = new LinkedList<Vertice>();
+		int posAnterior = -1;
+		aux.add(destino);
+		return ConstruirCaminoR(previo, origen, destino, aux, posAnterior);
+	}
+
+	private LinkedList<Vertice> ConstruirCaminoR(int [] previo, Vertice origen, Vertice destino, LinkedList<Vertice> aux, int posAnterior){
+		if (posAnterior == getIndex(origen)) {
+            //aux.add(origen);
+            return aux;
+        } else {
+            posAnterior = previo[getIndex(destino)];
+            aux.add(getVertex(posAnterior));
+            return ConstruirCaminoR(previo, origen, getVertex(posAnterior), aux, posAnterior);
+        }
 	}
 }
