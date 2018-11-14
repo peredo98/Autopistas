@@ -6,7 +6,7 @@ public class Auto{
   //private String fecha;
   //private String horaEntrada;
   //private String horaSalida;
-  private Recorrido recorrido = new Recorrido();
+  //private Recorrido recorrido = new Recorrido();
 
   public Auto(String id, Nodo entrada, Nodo salida/* String fecha, String horaEntrada,String horaSalida*/){
     this.id = id;
