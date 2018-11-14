@@ -120,7 +120,7 @@ public class GrafoAutopista{
 
 		System.out.println("prueba");
 
-		printDijkstra(v15, v18);
+		printDijkstra(v1, v10);
 	}
 
 	public void addVertex(Vertice v){
@@ -249,14 +249,14 @@ public class GrafoAutopista{
 
 			for (Vertice v : listVertVisitados) {
 				int posV = getIndex(v);
-				if (matriz[posV][posV] <= aux) {
+				if (matriz[posV][posV] < aux) {
 					aux = matriz[posV][posV];
 					temp = posV;
 				}
 			}
 
 
-			System.out.println(getVertex(temp).getNombre());
+			//System.out.println(getVertex(temp).getNombre());
 
 			return BuscarCaminoMasCorto(getVertex(temp), destino, matriz, listVertVisitados, previo);
 		}	
