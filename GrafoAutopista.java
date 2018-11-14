@@ -118,9 +118,6 @@ public class GrafoAutopista{
 		addVertex(v20);
 		addVertex(v21);
 
-		System.out.println("prueba");
-
-		printDijkstra(v1, v21);
 	}
 
 	public void addVertex(Vertice v){
@@ -141,6 +138,15 @@ public class GrafoAutopista{
 
 	public int getIndex(Vertice v){
 		return vertices.indexOf(v);
+	}
+
+	public Vertice searchVertex(String nombre){
+		for (Vertice v: vertices) {
+			if(v.getNombre() == nombre){
+				return v;
+			}
+		}
+		return null;
 	}
 
 	public double [][] getMatrizDeAdyacencia(){
@@ -276,7 +282,7 @@ public class GrafoAutopista{
 	private LinkedList<Vertice> ConstruirCamino(int [] previo, Vertice origen, Vertice destino){
 		LinkedList<Vertice> aux = new LinkedList<Vertice>();
 		int posAnterior = -1;
-		aux.add(destino);
+		aux.addFirst(destino);
 		return ConstruirCaminoR(previo, origen, destino, aux, posAnterior);
 	}
 
@@ -286,7 +292,7 @@ public class GrafoAutopista{
             return aux;
         } else {
             posAnterior = previo[getIndex(destino)];
-            aux.add(getVertex(posAnterior));
+            aux.addFirst(getVertex(posAnterior));
             return ConstruirCaminoR(previo, origen, getVertex(posAnterior), aux, posAnterior);
         }
 	}

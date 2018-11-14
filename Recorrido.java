@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Recorrido{
 
-  private LinkedList<Nodo> puntosRecorridos = new LinkedList<Nodo>();
+  private LinkedList<Vertice> puntosRecorridos = new LinkedList<Vertice>();
   private String horaEntrada;
   private String horaSalida;
 

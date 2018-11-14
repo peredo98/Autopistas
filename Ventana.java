@@ -5,13 +5,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import java.util.Hashtable;
 import javax.swing.JComboBox;
 
-public class Ventana extends Canvas implements ActionListener, ChangeListener{
+public class Ventana extends Canvas implements ActionListener, ChangeListener, ItemListener{
 
 	private JButton b, b2;
 	private Mapa map;
@@ -19,6 +21,8 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener{
 	private JLabel image, l1, l2, l3, l4;
 	private JSlider slider;
 	private JComboBox de, a;
+	private String origen = "Cuernavaca", destino = "Cuernavaca";
+	private int counter = 0;
 
 	private static String title = "Autopistas";
 	public static int width = 800;
@@ -71,6 +75,8 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener{
 		}
 		frame.add(de);
 		frame.add(a);
+		de.addItemListener(this);
+		a.addItemListener(this);
 
 		b2.setBounds((width * 3 / 4) + 25, 240, 150, 25);
 		frame.add(b2);
@@ -114,6 +120,19 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener{
 			map.stop();
 			b.setText("Reproducir");
 		}
+		if(e.getSource() == b2){
+			if(origen == destino){
+				System.out.println("Error: entrada y salida son iguales");
+				return;
+			}
+			counter++;
+			Vertice inicio = map.au.searchVertex(origen);
+			Vertice fin = map.au.searchVertex(destino);
+
+			String id = "Auto" + counter;
+
+			map.addAuto(new Auto(id, inicio, fin, map.tiempo.toString(), map.au));
+		}
 	}
 
 	public void stateChanged(ChangeEvent e){
@@ -136,4 +155,13 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener{
 			break;
 		}
 	}
+
+	public void itemStateChanged(ItemEvent e) {
+        if (e.getSource() == de) {
+            origen = (String) de.getSelectedItem();
+        }
+        if (e.getSource() == a) {
+            destino = (String) a.getSelectedItem();
+        }
+    }
 }

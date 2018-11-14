@@ -6,6 +6,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.Color;
+import java.util.LinkedList;
+
 public class Mapa extends Canvas implements Runnable{
 
 	private Thread thread;
@@ -15,10 +17,14 @@ public class Mapa extends Canvas implements Runnable{
 	private int rate;
 	public GrafoAutopista au;
 
+	public LinkedList<Auto> autos;
+
 	public Mapa(){
 		tiempo = new Reloj();
 		au = new GrafoAutopista();
+		autos = new LinkedList();
 	}
+
 	public synchronized void start(){
 		thread = new Thread(this);
 		thread.start();
@@ -68,6 +74,7 @@ public class Mapa extends Canvas implements Runnable{
 	private void tick(){
 
 	}
+	
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null){
@@ -88,6 +95,12 @@ public class Mapa extends Canvas implements Runnable{
 		g.setColor(Color.black);
 		
 		g.drawString("hora: " + tiempo.toString(), 500, 75);
+
+		g.setColor(Color.red);
+
+		for (Auto a: autos) {
+			g.fillOval(a.getX(), a.getY(), 5, 5);
+		}
 		
 		g.dispose();
 		bs.show();
@@ -99,6 +112,14 @@ public class Mapa extends Canvas implements Runnable{
 
 	public int getRate(){
 		return rate;
+	}
+
+	public void addAuto(Auto auto){
+		autos.add(auto);
+	}
+
+	public void removeAuto(Auto auto){
+		autos.remove(auto);
 	}
 	
 }
