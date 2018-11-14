@@ -6,22 +6,24 @@ public class Auto{
   private Vertice entrada;
   private Vertice salida;
   private Vertice actual;
-  private String horaEntrada;
-  private String horaSalida;
+  private Reloj hora;
+  private Reloj horaEntrada;
+  //private String horaSalida;
   private GrafoAutopista au;
   private LinkedList<Vertice> recorrido;
   private int x, y;
   //private Recorrido recorrido = new Recorrido();
 
-  public Auto(String id, Vertice entrada, Vertice salida, String horaEntrada, GrafoAutopista au){
+  public Auto(String id, Vertice entrada, Vertice salida, Reloj hora, GrafoAutopista au){
     this.id = id;
     this.entrada = entrada;
-    this.actual = entrada;
+    setActual(entrada);
     this.salida = salida;
-    this.horaEntrada = horaEntrada;
+    this.hora = hora;
     recorrido = au.dijkstra(entrada, salida);
     this.x = entrada.getX();
     this.y = entrada.getY();
+    setHoraEntrada(hora);
   }
 
   public String getId() {
@@ -67,6 +69,69 @@ public class Auto{
 	}
 	public int getY(){
 		return y;
+	}
+
+	public Reloj getHora(){
+		return hora;
+	}
+
+	public void setHora(Reloj hora){
+		this.hora = hora;
+	}
+
+	public void move(){
+		Reloj movimiento = Reloj.restar(hora, horaEntrada);
+
+		Vertice next = recorrido.get(recorrido.indexOf(actual)+1);
+		Arista recorriendo = actual.searchEdge(next);
+
+		double y2 = next.getY();
+		double x2 = next.getX();
+		double y1 = getActual().getY();
+		double x1 = getActual().getX();
+		double distanciaX = x2 - x1;
+		double distanciaY = y2 - y1;
+		
+		int segundos = (movimiento.getHora() * 3600) + (movimiento.getMinuto() * 60) + (movimiento.getSegundo());	
+
+		double velocidadX = distanciaX / (recorriendo.getPeso());
+		double velocidadY = distanciaY / (recorriendo.getPeso());
+
+		System.out.println(recorriendo.getPeso());
+
+
+		int posx = (int) Math.round((velocidadX * segundos) + x1);
+		int posy = (int) Math.round((velocidadY * segundos) + y1);
+
+		if(y2 > y1 && posy >= y2){
+			posy = (int) y2;
+		}
+
+		else if(y2 < y1 && posy <= y2){
+			posy = (int) y2;
+		}
+
+
+		if(x2 > x1 && posx >= x2){
+			posx = (int) x2;
+		}
+
+		else if(x2 < x1 && posx <= x2){
+			posx = (int) x2;
+		}
+		
+		setX(posx);
+		setY(posy);
+
+		if (posx == x2 && posy == y2){
+			setActual(next);
+			setHoraEntrada(hora);
+			return;
+		}
+	}
+
+	public void setHoraEntrada(Reloj hora){
+		horaEntrada = new Reloj (hora.getHora(), hora.getMinuto(), hora.getSegundo());
 	}
 
 }

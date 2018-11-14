@@ -49,7 +49,7 @@ public class Reloj{
 		return minuto;
 	}
 
-	public int getSegunfo(){
+	public int getSegundo(){
 		return segundo;
 	}
 
@@ -63,7 +63,13 @@ public class Reloj{
 			minuto = "0" + minuto;
 		}
 		
-		return hora + " : " + minuto;
-		
+		return hora + " : " + minuto;	
+	}
+
+	public static Reloj restar(Reloj hora, Reloj restar){
+		int h = hora.getHora() - restar.getHora();
+		int m = hora.getMinuto() - restar.getMinuto();
+		int s = hora.getSegundo() - restar.getSegundo();
+		return new Reloj(h, m, s);
 	}
 }

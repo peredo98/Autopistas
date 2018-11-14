@@ -69,6 +69,15 @@ public class Vertice{
 		return aristas.get(i);
 	}
 
+	public Arista searchEdge(Vertice v){
+		for (Arista a : aristas) {
+			if(v == a.getDestino()){
+				return a;
+			}
+		}
+		return null;
+	}
+
 	public int getEdgeSize(){
 		return aristas.size();
 	}

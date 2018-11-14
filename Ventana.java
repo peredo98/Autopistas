@@ -131,7 +131,7 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 
 			String id = "Auto" + counter;
 
-			map.addAuto(new Auto(id, inicio, fin, map.tiempo.toString(), map.au));
+			map.addAuto(new Auto(id, inicio, fin, map.tiempo, map.au));
 		}
 	}
 

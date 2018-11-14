@@ -100,6 +100,12 @@ public class Mapa extends Canvas implements Runnable{
 
 		for (Auto a: autos) {
 			g.fillOval(a.getX(), a.getY(), 5, 5);
+
+			try{
+				a.move();
+			}catch(IndexOutOfBoundsException e){
+				removeAuto(a);
+			}
 		}
 		
 		g.dispose();
