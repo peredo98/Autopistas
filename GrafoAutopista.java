@@ -75,7 +75,7 @@ public class GrafoAutopista{
 		v13.addEdge(v14,72);
 
 		v14.addEdge(v13,72);
-		
+
 		v15.addEdge(v9,40);
 		v15.addEdge(v16,34);
 
@@ -118,6 +118,9 @@ public class GrafoAutopista{
 		addVertex(v20);
 		addVertex(v21);
 
+		System.out.println("prueba");
+
+		printDijkstra(v1, v10);
 	}
 
 	public void addVertex(Vertice v){
@@ -140,14 +143,7 @@ public class GrafoAutopista{
 		return vertices.indexOf(v);
 	}
 
-	public Vertice searchVertex(String nombre){
-		for (Vertice v: vertices) {
-			if(v.getNombre() == nombre){
-				return v;
-			}
-		}
-		return null;
-	}
+
 
 	public double [][] getMatrizDeAdyacencia(){
 		double [][] matriz = new double [getSize()][getSize()];
@@ -165,6 +161,16 @@ public class GrafoAutopista{
 		}
 		return matriz;
 	}
+
+	public Vertice searchVertex(String nombre){
+		for (Vertice v: vertices) {
+			if(v.getNombre() == nombre){
+				return v;
+			}
+		}
+		return null;
+	}
+
 
 	public void printMatrix(double [][] matrix){
 		for (int i = 0; i < matrix.length; i++) {
@@ -198,7 +204,7 @@ public class GrafoAutopista{
 		for (Vertice v : vertices) {
             listVertVisitados.add(v);
         }
-		
+
 		int posOrigen = getIndex(origen);
 		int posFin = getIndex(destino);
 
@@ -210,7 +216,7 @@ public class GrafoAutopista{
 
 		BuscarCaminoMasCorto(origen, destino, matriz, listVertVisitados, previo);
 		camino = ConstruirCamino(previo, origen, destino);
-		
+
 		return camino;
 	}
 
@@ -244,8 +250,8 @@ public class GrafoAutopista{
 			for (Vertice v : vertices) {
 				if(v == actual){
 					for (int i = 0; i < listVertVisitados.size(); i++) {
-						if (listVertVisitados.get(i) == v) {
-							listVertVisitados.remove(i);
+						if (getVertex(i) == v) {
+							listVertVisitados.remove(getVertex(i));
 							break;
 						}
 					}
@@ -261,15 +267,18 @@ public class GrafoAutopista{
 				}
 			}
 
+
+			//System.out.println(getVertex(temp).getNombre());
+
 			return BuscarCaminoMasCorto(getVertex(temp), destino, matriz, listVertVisitados, previo);
-		}	
+		}
 	}
 
 	private LinkedList<Vertice> ListVertDestino(Vertice origen) {
         LinkedList<Vertice> listdestino = new LinkedList<>();
 
         double [][] matriz_adyac = getMatrizDeAdyacencia();
- 
+
         for (int i = 0; i < matriz_adyac.length; i++) {
         	int posOrigen = getIndex(origen);
             if (matriz_adyac[posOrigen][i] != Double.MAX_VALUE) {
@@ -282,7 +291,7 @@ public class GrafoAutopista{
 	private LinkedList<Vertice> ConstruirCamino(int [] previo, Vertice origen, Vertice destino){
 		LinkedList<Vertice> aux = new LinkedList<Vertice>();
 		int posAnterior = -1;
-		aux.addFirst(destino);
+		aux.add(destino);
 		return ConstruirCaminoR(previo, origen, destino, aux, posAnterior);
 	}
 
@@ -292,7 +301,7 @@ public class GrafoAutopista{
             return aux;
         } else {
             posAnterior = previo[getIndex(destino)];
-            aux.addFirst(getVertex(posAnterior));
+            aux.add(getVertex(posAnterior));
             return ConstruirCaminoR(previo, origen, getVertex(posAnterior), aux, posAnterior);
         }
 	}
