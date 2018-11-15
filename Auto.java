@@ -25,6 +25,9 @@ public class Auto{
     this.x = entrada.getX();
     this.y = entrada.getY();
     setHoraEntrada(hora);
+    Recorrido r = new Recorrido(id, entrada.getNombre() + " (Entrada)", hora.toString(), hora.getFecha().toString());
+    Registro.registro.add(r);
+	Registro.area.append(r.toString());
   }
 
   public String getId() {
@@ -95,17 +98,8 @@ public class Auto{
 		
 		int segundos = (movimiento.getHora() * 3600) + (movimiento.getMinuto() * 60) + (movimiento.getSegundo());
 
-		if(segundos == 0 && istEingefahren){
-			Recorrido r;
-			if(entrada == actual){
-				r = new Recorrido(this.id, getActual().getNombre() + "(Entrada)", hora.toString(), hora.getFecha().toString());
-			}
-			else if(salida == actual){
-				r = new Recorrido(this.id, getActual().getNombre() + "(Salida)", hora.toString(), hora.getFecha().toString());
-			}
-			else{
-				r = new Recorrido(this.id, getActual().getNombre(), hora.toString(), hora.getFecha().toString());
-			}
+		if(istEingefahren){
+			Recorrido r = new Recorrido(this.id, getActual().getNombre(), hora.toString(), hora.getFecha().toString());
 			Registro.registro.add(r);
 			Registro.area.append(r.toString());
 		}	

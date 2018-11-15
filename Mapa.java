@@ -105,6 +105,9 @@ public class Mapa extends Canvas implements Runnable{
 			try{
 				a.move();
 			}catch(IndexOutOfBoundsException e){
+				Recorrido r = new Recorrido(a.getId(), a.getSalida().getNombre() + " (Salida)", a.getHora().toString(), a.getHora().getFecha().toString());
+				Registro.registro.add(r);
+				Registro.area.append(r.toString());
 				removeAuto(a);
 			}
 		}
