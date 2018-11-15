@@ -33,7 +33,7 @@ public class Mapa extends Canvas implements Runnable{
 	public synchronized void stop(){
 		try{
 			running = false;
-			thread.join();	
+			thread.join();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -74,26 +74,26 @@ public class Mapa extends Canvas implements Runnable{
 	private void tick(){
 
 	}
-	
+
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null){
 			this.createBufferStrategy(2);
 			return;
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
-		
+
 		BufferedImage img = null;
 		try {
   			img = ImageIO.read(new File("mapa_prototipo.png"));
-		} 
+		}
 		catch (IOException e) {
 		}
 		g.drawImage(img, 0, 0, Ventana.width *3/4, Ventana.height, null);
-		
+
 		g.setColor(Color.black);
-		
+
 		g.drawString("Fecha: " + tiempo.getFecha().toString(), 500, 50);
 		g.drawString("hora: " + tiempo.toString(), 500, 75);
 
@@ -107,11 +107,14 @@ public class Mapa extends Canvas implements Runnable{
 			}catch(IndexOutOfBoundsException e){
 				Recorrido r = new Recorrido(a.getId(), a.getSalida().getNombre() + " (Salida)", a.getHora().toString(), a.getHora().getFecha().toString());
 				Registro.registro.add(r);
-				Registro.area.append(r.toString());
+				Registro.area1.append(r.getId()+"\n");
+				Registro.area2.append(r.getLugar()+"\n");
+				Registro.area3.append(r.getHora()+"\n");
+				Registro.area4.append(r.getFecha()+"\n");
 				removeAuto(a);
 			}
 		}
-		
+
 		g.dispose();
 		bs.show();
 	}
@@ -131,5 +134,5 @@ public class Mapa extends Canvas implements Runnable{
 	public void removeAuto(Auto auto){
 		autos.remove(auto);
 	}
-	
+
 }

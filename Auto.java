@@ -27,7 +27,10 @@ public class Auto{
     setHoraEntrada(hora);
     Recorrido r = new Recorrido(id, entrada.getNombre() + " (Entrada)", hora.toString(), hora.getFecha().toString());
     Registro.registro.add(r);
-	Registro.area.append(r.toString());
+    Registro.area1.append(r.getId()+"\n");
+    Registro.area2.append(r.getLugar()+"\n");
+    Registro.area3.append(r.getHora()+"\n");
+    Registro.area4.append(r.getFecha()+"\n");
   }
 
   public String getId() {
@@ -95,14 +98,17 @@ public class Auto{
 		double x1 = getActual().getX();
 		double distanciaX = x2 - x1;
 		double distanciaY = y2 - y1;
-		
+
 		int segundos = (movimiento.getHora() * 3600) + (movimiento.getMinuto() * 60) + (movimiento.getSegundo());
 
 		if(istEingefahren){
 			Recorrido r = new Recorrido(this.id, getActual().getNombre(), hora.toString(), hora.getFecha().toString());
 			Registro.registro.add(r);
-			Registro.area.append(r.toString());
-		}	
+			Registro.area1.append(r.getId()+"\n");
+      Registro.area2.append(r.getLugar()+"\n");
+      Registro.area3.append(r.getHora()+"\n");
+      Registro.area4.append(r.getFecha()+"\n");
+		}
 
 		double velocidadX = distanciaX / (recorriendo.getPeso());
 		double velocidadY = distanciaY / (recorriendo.getPeso());
@@ -126,7 +132,7 @@ public class Auto{
 		else if(x2 < x1 && posx <= x2){
 			posx = (int) x2;
 		}
-		
+
 		setX(posx);
 		setY(posy);
 
