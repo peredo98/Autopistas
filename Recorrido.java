@@ -2,19 +2,20 @@ import java.util.LinkedList;
 
 public class Recorrido{
 
-  private LinkedList<Vertice> puntosRecorridos = new LinkedList<Vertice>();
-  private String horaEntrada;
-  private String horaSalida;
+  private String id, lugar, fecha, hora;
 
-  public Recorrido(Nodo puntoRecorrido, String horaEntrada, String horaSalida){
-    puntosRecorridos.add(puntoRecorrido);
-    this.horaEntrada = horaEntrada;
-    this.horaSalida = horaSalida;
+  public Recorrido(String id , String lugar, String fecha, String hora){
+    this.id = id;
+    this.lugar = lugar;
+    this.fecha = fecha;
+    this.hora = hora;
   }
 
-  public void getRecorrido(){
-    System.out.println(puntosRecorridos);
+  public String toString(){
+    String recorrido = id + "    "+lugar +"    " +fecha+ "    "+hora + "\n";
+    return recorrido;
   }
+
 
 
 }

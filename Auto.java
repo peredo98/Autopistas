@@ -12,6 +12,7 @@ public class Auto{
   private GrafoAutopista au;
   private LinkedList<Vertice> recorrido;
   private int x, y;
+  private boolean istEingefahren;
   //private Recorrido recorrido = new Recorrido();
 
   public Auto(String id, Vertice entrada, Vertice salida, Reloj hora, GrafoAutopista au){
@@ -92,13 +93,25 @@ public class Auto{
 		double distanciaX = x2 - x1;
 		double distanciaY = y2 - y1;
 		
-		int segundos = (movimiento.getHora() * 3600) + (movimiento.getMinuto() * 60) + (movimiento.getSegundo());	
+		int segundos = (movimiento.getHora() * 3600) + (movimiento.getMinuto() * 60) + (movimiento.getSegundo());
+
+		if(segundos == 0 && istEingefahren){
+			Recorrido r;
+			if(entrada == actual){
+				r = new Recorrido(this.id, getActual().getNombre() + "(Entrada)", hora.toString(), hora.getFecha().toString());
+			}
+			else if(salida == actual){
+				r = new Recorrido(this.id, getActual().getNombre() + "(Salida)", hora.toString(), hora.getFecha().toString());
+			}
+			else{
+				r = new Recorrido(this.id, getActual().getNombre(), hora.toString(), hora.getFecha().toString());
+			}
+			Registro.registro.add(r);
+			Registro.area.append(r.toString());
+		}	
 
 		double velocidadX = distanciaX / (recorriendo.getPeso());
 		double velocidadY = distanciaY / (recorriendo.getPeso());
-
-		System.out.println(recorriendo.getPeso());
-
 
 		int posx = (int) Math.round((velocidadX * segundos) + x1);
 		int posy = (int) Math.round((velocidadY * segundos) + y1);
@@ -126,8 +139,10 @@ public class Auto{
 		if (posx == x2 && posy == y2){
 			setActual(next);
 			setHoraEntrada(hora);
+			istEingefahren = true;
 			return;
 		}
+		istEingefahren = false;
 	}
 
 	public void setHoraEntrada(Reloj hora){
