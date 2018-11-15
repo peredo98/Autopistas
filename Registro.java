@@ -1,40 +1,41 @@
-public class Registro{
+import javax.swing.JFrame;
+import java.awt.Canvas;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
-  private String idAuto;
-  private String fecha;
-  private String hora;
-  private String nombreNodo;
+public class Registro extends Canvas{
 
-  public Registro(String idAuto, String fecha, String hora){
-    this.idAuto = idAuto;
-    this.fecha = fecha;
-    this.hora = hora;
-  }
+	private Mapa map;
+	private JFrame frame;
+	private JTextArea area;
+	private JScrollPane scroll;
 
-  public String getIdAuto(){
-    return idAuto;
-  }
+	private static String title = "Registro";
+	public static int width = 800;
+	public static int height = 600;
 
-  public String getFecha(){
-    return fecha;
-  }
+	public Registro(Mapa map){
+
+		frame = new JFrame(title);
+		this.map = map;
+
+		area = new JTextArea(10, 20);
+		area.setEditable(false);
+		scroll = new JScrollPane(area);
+    scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+    scroll.setBounds(25, 25, width -50, height -100);
+    frame.add(scroll);
 
 
-  public String getHora(){
-    return hora;
-  }
+		frame.setLocation(0, 0);
+		frame.setLayout(null);
+		frame.setSize(width, height);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setVisible(true);
 
-  public void setIdAuto(){
-    this.idAuto = idAuto;
-  }
+	}
 
-  public void setFecha(){
-    this.fecha = fecha;
-
-  }
-
-  public void setHora(){
-    this.hora = hora;
-  }
 
 }

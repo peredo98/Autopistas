@@ -1,6 +1,8 @@
 public class Main{
 	public static void main(String[]args){
-		new Ventana(new Mapa());
+		Mapa mapa = new Mapa();
+		new Registro(mapa);
+		new Ventana(mapa);
 		
 	}
 }
