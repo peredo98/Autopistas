@@ -129,7 +129,7 @@ public class Mapa extends Canvas implements Runnable{
 	}
 
 	public void addAuto(Auto auto){
-		autos.add(auto);
+		autos.addFirst(auto);
 	}
 
 	public void removeAuto(Auto auto){
