@@ -112,6 +112,7 @@ public class Mapa extends Canvas implements Runnable{
 				Registro.area3.append(r.getHora()+"\n");
 				Registro.area4.append(r.getFecha()+"\n");
 				removeAuto(a);
+				break;
 			}
 		}
 
