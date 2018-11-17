@@ -5,8 +5,8 @@ public class Reloj{
 	private Fecha fecha;
 
 	public Reloj(){
-		hora = 0;
-		minuto = 0;
+		hora = 23;
+		minuto = 58;
 		segundo = 0;
 
 		fecha = new Fecha(1, 1, 18);
@@ -33,7 +33,7 @@ public class Reloj{
 		}
 		if(minuto == 60){
 			minuto = 0;
-			hora++;
+			setHora(getHora() + 1);
 		}
 		this.minuto = minuto;
 	}
@@ -41,7 +41,7 @@ public class Reloj{
 	public void setSegundo(int segundo){
 		if(segundo >= 60){
 			segundo = 0;
-			minuto++;
+			setMinuto(getMinuto() + 1);
 		}
 		this.segundo = segundo;
 	}
@@ -83,6 +83,10 @@ public class Reloj{
 		int h = hora.getHora() - restar.getHora();
 		int m = hora.getMinuto() - restar.getMinuto();
 		int s = hora.getSegundo() - restar.getSegundo();
+		int d = Fecha.restar(hora.getFecha(), restar.getFecha());
+		h = h + (d * 24);
 		return new Reloj(h, m, s, hora.getFecha());
+
+		//Change
 	}
 }

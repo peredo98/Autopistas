@@ -12,22 +12,22 @@ public class Fecha{
 	public void setDia(int dia){
 		if((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && (dia > 31 || dia < 1)){
 			dia = 1;
-			mes++;
+			setMes(getMes() + 1);
 		}
 		if((mes == 4 || mes == 6 || mes == 9 || mes == 11) && (dia > 30 || dia < 1)){
 			dia = 1;
-			mes++;
+			setMes(getMes() + 1);
 		}
 		if(mes == 2 && (dia > 28 || dia < 1)){
 			dia = 1;
-			mes++;
+			setMes(getMes() + 1);
 		}
 		this.dia = dia;
 	}
 
 	public void setMes(int mes){
 		if(mes > 12 || mes < 1){
-			ano++;
+			setAno(getAno() + 1);
 			mes = 1;
 		}
 		this.mes = mes;
@@ -65,6 +65,13 @@ public class Fecha{
 		}
 		
 		return dia + "/" + mes + "/" + ano;	
+	}
+
+	public static int restar(Fecha fecha, Fecha restar){
+		int d = fecha.getDia() - restar.getDia();
+		int m = fecha.getMes() - restar.getMes();
+		int a = fecha.getAno() - restar.getAno();
+		return d;
 	}
 
 }
