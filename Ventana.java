@@ -15,7 +15,7 @@ import javax.swing.JComboBox;
 
 public class Ventana extends Canvas implements ActionListener, ChangeListener, ItemListener{
 
-	private JButton b, b2;
+	private JButton b,b1, b2;
 	private Mapa map;
 	private JFrame frame;
 	private JLabel image, l1, l2, l3, l4;
@@ -27,12 +27,13 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 	private static String title = "Autopistas";
 	public static int width = 800;
 	public static int height = 600;
-	
+
 	public Ventana(Mapa map){
-		
+
 
 		frame = new JFrame(title);
 		b = new JButton("Reproducir");
+		b1 = new JButton ("Generar reporte");
 		image = new JLabel();
 		l1 = new JLabel("time speed:");
 		slider = new JSlider(1, 8);
@@ -50,10 +51,14 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 		frame.add(b);
 		b.addActionListener(this);
 
+		b1.setBounds((width * 3 / 4) + 25, 500, 150, 25);
+		frame.add(b1);
+		b1.addActionListener(this);
+
 		image.setBounds(0, 0, (width * 3 / 4), height);
 		image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mapa_prototipo.png")));
 		frame.add(image);
-		
+
 		l1.setBounds((width * 3 / 4) + 25, 67, 100, 15);
 		frame.add(l1);
 
@@ -97,8 +102,8 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 	    table.put(8, new JLabel("60"));
     	slider.setMajorTickSpacing(1);
     	slider.setPaintTicks(true);
-    	slider.setPaintLabels(true); 
-    	slider.setLabelTable(table); 
+    	slider.setPaintLabels(true);
+    	slider.setLabelTable(table);
 		frame.add(slider);
 		slider.addChangeListener(this);
 
@@ -132,6 +137,10 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 			String id = "Auto" + counter;
 
 			map.addAuto(new Auto(id, inicio, fin, map.tiempo, map.au));
+		}
+
+		if(e.getSource() == b1){
+			Reporte reporte = new Reporte(map);
 		}
 	}
 
