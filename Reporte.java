@@ -121,8 +121,7 @@ public class Reporte extends Canvas implements ItemListener, ActionListener{
 
   public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == lugares) {
-          System.out.println(Registro.registro.size());
-          System.out.println(Registro.registro);
+          //salu2
         }
     }
 
@@ -169,7 +168,21 @@ public class Reporte extends Canvas implements ItemListener, ActionListener{
     }
 
     if(e.getSource() == b1){
-      System.out.println(Registro.registro.get(1).getId());
+      String stringEntrada = (String)lugares.getSelectedItem() + " (Entrada)";
+      String stringSalida = (String)lugares.getSelectedItem() + " (Salida)";
+      int totalEntrada = 0;
+      int totalSalida = 0;
+      for(int i=0; i<Registro.registro.size(); i++){
+        if(stringEntrada.equals(Registro.registro.get(i).getLugar())){
+          totalEntrada++;
+        }
+        if(stringSalida.equals(Registro.registro.get(i).getLugar())){
+          totalSalida++;
+        }
+      }
+      l2.setText("Total de autos de entrada: " + totalEntrada);
+      l3.setText("Total de autos de salida: " + totalSalida);
+      l4.setText("TOTAL: " + (totalEntrada+totalSalida));
     }
   }
 
