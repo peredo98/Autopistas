@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -18,7 +18,7 @@ import javax.swing.event.ChangeListener;
 
 import java.util.LinkedList;
 
-public class Reporte extends Canvas implements ItemListener{
+public class Reporte extends Canvas implements ItemListener, ActionListener{
 
   private Mapa map;
   private JFrame frame;
@@ -37,30 +37,30 @@ public class Reporte extends Canvas implements ItemListener{
 
   public Reporte(Mapa map){
 
-    		panel = new JPanel();
-    		scroll = new JScrollPane(panel);
-    		frame = new JFrame(title);
+        panel = new JPanel();
+        scroll = new JScrollPane(panel);
+        frame = new JFrame(title);
         b = new JButton("Buscar");
         b1 = new JButton("Buscar");
 
-    		this.map = map;
+        this.map = map;
 
         registro = new LinkedList<Recorrido>();
 
-    		area1 = new JTextArea();
-    		area1.setEditable(false);
+        area1 = new JTextArea();
+        area1.setEditable(false);
         area1.setText("LUGAR\n");
-    		panel.add(area1);
+        panel.add(area1);
 
-    		area2 = new JTextArea();
-    		area2.setEditable(false);
-        area2.setText("SALIDA\n");
-    		panel.add(area2);
+        area2 = new JTextArea();
+        area2.setEditable(false);
+        area2.setText("FECHA\n");
+        panel.add(area2);
 
-    		area3 = new JTextArea();
-    		area3.setEditable(false);
-        area3.setText("ENTRADA\n");
-    		panel.add(area3);
+        area3 = new JTextArea();
+        area3.setEditable(false);
+        area3.setText("HORA\n");
+        panel.add(area3);
 
         l = new JLabel("Mostrar recorrido de auto:");
         l.setBounds(20,450,200, 25);
@@ -68,7 +68,7 @@ public class Reporte extends Canvas implements ItemListener{
         
         b.setBounds(310, 450, 100, 25);
         frame.add(b);
-        //b.addActionListener();
+        b.addActionListener(this);
 
         l1 = new JLabel("Mostrar registro de:");
         l1.setBounds(20,490,150, 25);
@@ -76,7 +76,7 @@ public class Reporte extends Canvas implements ItemListener{
 
         lugares = new JComboBox();
         for(int i = 0; i<map.au.getSize(); i++){
-    				lugares.addItem(map.au.getVertex(i).getNombre());
+            lugares.addItem(map.au.getVertex(i).getNombre());
         }
         lugares.setBounds(145,490,150,25);
         lugares.addItemListener(this);
@@ -84,6 +84,7 @@ public class Reporte extends Canvas implements ItemListener{
 
         b1.setBounds(310, 490, 100, 25);
         frame.add(b1);
+        b1.addActionListener(this);
 
         l2 = new JLabel("Total de autos de entrada:");
         l2.setBounds(450,450,200, 25);
@@ -97,7 +98,7 @@ public class Reporte extends Canvas implements ItemListener{
         l4.setBounds(550,530,100, 25);
         frame.add(l4);
 
-        textf = new JTextField("Auto 1");
+        textf = new JTextField("Auto1");
         textf.setBounds(180,450,100,25);
         frame.add(textf);
 
@@ -105,22 +106,58 @@ public class Reporte extends Canvas implements ItemListener{
         scroll.setBounds(25, 25, width -50, height -200);
         frame.add(scroll);
 
-    		panel.setSize(width-50, height-200);
-    		panel.setLayout(new GridLayout(0,3));
+        panel.setSize(width-50, height-200);
+        panel.setLayout(new GridLayout(0,3));
 
-    		frame.setLocation(0, 0);
-    		frame.setLayout(null);
-    		frame.setSize(width, height);
-    		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    		frame.setResizable(false);
-    		frame.setVisible(true);
+        frame.setLocation(0, 0);
+        frame.setLayout(null);
+        frame.setSize(width, height);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setVisible(true);
 
 
   }
 
   public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == lugares) {
-
+          System.out.println(Registro.registro.size());
+          System.out.println(Registro.registro);
         }
     }
+
+  public void actionPerformed(ActionEvent e){
+
+    if(e.getSource() == b){
+
+      if(textf.getText() != null){
+        int success = 0;
+        //Recorrer la lista de recorridos
+        for(int i=0; i<Registro.registro.size(); i++){
+          //Validar que la info sea del ID que selecciona el usuario
+          if(textf.getText().equals(Registro.registro.get(i).getId())){
+            System.out.println(Registro.registro.get(i));
+            area1.append(Registro.registro.get(i).getLugar()+"\n");
+            area2.append(Registro.registro.get(i).getFecha()+"\n");
+            area3.append(Registro.registro.get(i).getHora()+"\n");
+
+            success = 1;
+          }
+        }
+
+        if(success != 1){
+          System.out.println("No se encontraron registros para el ID provisto.");
+        }
+
+      }
+      else{
+        System.out.println("Error. Por favor ingrese el ID del auto a buscar.");
+      }
+    }
+
+    if(e.getSource() == b1){
+      System.out.println(Registro.registro.get(1).getId());
+    }
+  }
+
 }
