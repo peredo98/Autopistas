@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import java.awt.Canvas;
 import javax.swing.JTextArea;
 import java.awt.GridLayout;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JPanel;
@@ -26,6 +27,7 @@ public class Reporte extends Canvas implements ItemListener{
   private JScrollPane scroll;
   private JPanel panel;
   private JTextField textf;
+  private JButton b, b1;
   private JLabel l,l1,l2,l3,l4;
   private JComboBox lugares;
 
@@ -38,6 +40,8 @@ public class Reporte extends Canvas implements ItemListener{
     		panel = new JPanel();
     		scroll = new JScrollPane(panel);
     		frame = new JFrame(title);
+        b = new JButton("Buscar");
+        b1 = new JButton("Buscar");
 
     		this.map = map;
 
@@ -61,6 +65,10 @@ public class Reporte extends Canvas implements ItemListener{
         l = new JLabel("Mostrar recorrido de auto:");
         l.setBounds(20,450,200, 25);
         frame.add(l);
+        
+        b.setBounds(310, 450, 100, 25);
+        frame.add(b);
+        //b.addActionListener();
 
         l1 = new JLabel("Mostrar registro de:");
         l1.setBounds(20,490,150, 25);
@@ -74,12 +82,15 @@ public class Reporte extends Canvas implements ItemListener{
         lugares.addItemListener(this);
         frame.add(lugares);
 
+        b1.setBounds(310, 490, 100, 25);
+        frame.add(b1);
+
         l2 = new JLabel("Total de autos de entrada:");
-        l2.setBounds(350,450,200, 25);
+        l2.setBounds(450,450,200, 25);
         frame.add(l2);
 
         l3 = new JLabel("Total de autos de salida:");
-        l3.setBounds(350,490,200, 25);
+        l3.setBounds(450,490,200, 25);
         frame.add(l3);
 
         l4 = new JLabel("TOTAL:");
