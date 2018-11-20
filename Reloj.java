@@ -5,8 +5,8 @@ public class Reloj{
 	private Fecha fecha;
 
 	public Reloj(){
-		hora = 23;
-		minuto = 58;
+		hora = 0;
+		minuto = 0;
 		segundo = 0;
 
 		fecha = new Fecha(1, 1, 18);
@@ -69,14 +69,14 @@ public class Reloj{
 	public String toString(){
 		String hora = "" + this.hora;
 		if (this.hora < 10){
-			hora = "0" + hora;	
+			hora = "0" + hora;
 		}
 		String minuto = "" + this.minuto;
 		if(this.minuto < 10){
 			minuto = "0" + minuto;
 		}
-		
-		return hora + " : " + minuto;	
+
+		return hora + " : " + minuto;
 	}
 
 	public static Reloj restar(Reloj hora, Reloj restar){
