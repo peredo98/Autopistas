@@ -137,6 +137,13 @@ public class Reporte extends Canvas implements ItemListener, ActionListener{
           //Validar que la info sea del ID que selecciona el usuario
           if(textf.getText().equals(Registro.registro.get(i).getId())){
             System.out.println(Registro.registro.get(i));
+
+            if(success == 0){
+              area1.append(textf.getText()+":\n");
+              area2.append("\n");
+              area3.append("\n");
+            }
+
             area1.append(Registro.registro.get(i).getLugar()+"\n");
             area2.append(Registro.registro.get(i).getFecha()+"\n");
             area3.append(Registro.registro.get(i).getHora()+"\n");
@@ -147,11 +154,17 @@ public class Reporte extends Canvas implements ItemListener, ActionListener{
 
         if(success != 1){
           System.out.println("No se encontraron registros para el ID provisto.");
+          area1.append("No se encontraron registros para el ID provisto.\n");
+          area2.append("\n");
+          area3.append("\n");
         }
 
       }
       else{
         System.out.println("Error. Por favor ingrese el ID del auto a buscar.");
+        area1.append("Error. Por favor ingrese el ID del auto a buscar.\n");
+        area2.append("\n");
+        area3.append("\n");
       }
     }
 
