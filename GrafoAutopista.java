@@ -1,4 +1,6 @@
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class GrafoAutopista{
 
@@ -117,7 +119,6 @@ public class GrafoAutopista{
 		addVertex(v19);
 		addVertex(v20);
 		addVertex(v21);
-
 	}
 
 	public void addVertex(Vertice v){
@@ -295,5 +296,66 @@ public class GrafoAutopista{
             aux.addFirst(getVertex(posAnterior));
             return ConstruirCaminoR(previo, origen, getVertex(posAnterior), aux, posAnterior);
         }
+	}
+
+	public LinkedList<Vertice> bfs(Vertice origen, Vertice destino){
+
+		
+		LinkedList<Vertice> listVertVisitados = new LinkedList<Vertice>();
+
+		Queue<Vertice> queue = new LinkedList<Vertice>();
+		queue.add(origen);
+		listVertVisitados.add(origen);
+		while(!queue.isEmpty()){
+			Vertice v = queue.peek();
+			queue.remove();
+			for (Vertice w : v.getAdyacentes()) {
+				if(!listVertVisitados.contains(w)){
+					listVertVisitados.add(w);
+					if(w == destino){
+						return listVertVisitados;
+					}
+					queue.add(w);
+				}
+			}
+		}
+		return listVertVisitados;
+	}
+
+	public LinkedList<Vertice> dfs(Vertice origen, Vertice destino){
+
+		
+		LinkedList<Vertice> listVertVisitados = new LinkedList<Vertice>();
+
+		Stack<Vertice> stack = new Stack<Vertice>();
+		stack.add(origen);
+		listVertVisitados.add(origen);
+		while(!stack.isEmpty()){
+			Vertice v = stack.peek();
+			stack.pop();
+			for (Vertice w : v.getAdyacentes()) {
+				if(!listVertVisitados.contains(w)){
+					listVertVisitados.add(w);
+					if(w == destino){
+						return listVertVisitados;
+					}
+					stack.push(w);
+				}
+			}
+		}
+		return listVertVisitados;
+	}
+
+
+	private void printBFS(Vertice origen, Vertice destino){
+		for(Vertice v : bfs(origen, destino)){
+			System.out.println(v.getNombre());
+		}
+	}
+
+	private void printDFS(Vertice origen, Vertice destino){
+		for(Vertice v : dfs(origen, destino)){
+			System.out.println(v.getNombre());
+		}
 	}
 }

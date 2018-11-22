@@ -82,4 +82,16 @@ public class Vertice{
 		return aristas.size();
 	}
 
+	public LinkedList<Arista> getEdges(){
+		return aristas;
+	}
+
+	public LinkedList<Vertice> getAdyacentes(){
+		LinkedList<Vertice> ady = new LinkedList<Vertice>();
+		for (Arista a : getEdges()) {
+			ady.add(a.getDestino());
+		}
+		return ady;
+	}
+
 }
