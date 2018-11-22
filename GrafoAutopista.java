@@ -129,6 +129,10 @@ public class GrafoAutopista{
 		vertices.remove(v);
 	}
 
+	public LinkedList<Vertice> getVertices(){
+		return vertices;
+	}
+
 	public Vertice getVertex(int i){
 		return vertices.get(i);
 	}

@@ -112,7 +112,6 @@ public class Reporte extends Canvas implements ItemListener, ActionListener{
         frame.setLocation(0, 0);
         frame.setLayout(null);
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
 

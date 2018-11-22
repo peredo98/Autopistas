@@ -15,13 +15,13 @@ import javax.swing.JComboBox;
 
 public class Ventana extends Canvas implements ActionListener, ChangeListener, ItemListener{
 
-	private JButton b,b1, b2;
+	private JButton b,b1, b2, b3, b4;
 	private Mapa map;
 	private JFrame frame;
-	private JLabel image, l1, l2, l3, l4;
+	private JLabel image, l1, l2, l3, l4, l5, l6, l7 , l8 , l9, l10;
 	private JSlider slider;
-	private JComboBox de, a;
-	private String origen = "Cuernavaca", destino = "Cuernavaca";
+	private JComboBox de, a, o1, o2, d1, d2;
+	private String origen = "Cuernavaca", destino = "Cuernavaca", origen1 = "Cuernavaca", destino1 = "Cuernavaca",origen2 = "Cuernavaca", destino2 = "Cuernavaca";
 	private int counter = 0;
 
 	private static String title = "Autopistas";
@@ -40,9 +40,21 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 		l2 = new JLabel("crear auto:");
 		l3 = new JLabel("De:");
 		l4 = new JLabel("A:");
+		l5 = new JLabel("BFS:");
+		l6 = new JLabel("DFS:");
+		l7 = new JLabel("Origen:");
+		l8 = new JLabel("Origen:");
+		l9 = new JLabel("Buscar:");
+		l10 = new JLabel("Buscar:");
 		de = new JComboBox();
 		a = new JComboBox();
 		b2 = new JButton("Generar Auto");
+		o1 = new JComboBox();
+		d1 = new JComboBox();
+		o2 = new JComboBox();
+		d2 = new JComboBox();
+		b3 = new JButton("Buscar (BFS)");
+		b4 = new JButton("Buscar (DFS)");
 
 		this.map = map;
 		map.setRate(6);
@@ -51,7 +63,7 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 		frame.add(b);
 		b.addActionListener(this);
 
-		b1.setBounds((width * 3 / 4) + 25, 500, 150, 25);
+		b1.setBounds((width * 3 / 4) + 25, 525, 150, 25);
 		frame.add(b1);
 		b1.addActionListener(this);
 
@@ -83,9 +95,37 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 		de.addItemListener(this);
 		a.addItemListener(this);
 
+		o1.setBounds((width * 3 / 4) + 75, 320, 100, 20);
+		d1.setBounds((width * 3 / 4) + 75, 340, 100, 20);
+		o2.setBounds((width * 3 / 4) + 75, 420, 100, 20);
+		d2.setBounds((width * 3 / 4) + 75, 440, 100, 20);
+		for (Vertice v : map.au.getVertices()) {
+			o1.addItem(v.getNombre());
+			d1.addItem(v.getNombre());
+			o2.addItem(v.getNombre());
+			d2.addItem(v.getNombre());
+		}
+		frame.add(o1);
+		frame.add(d1);
+		frame.add(o2);
+		frame.add(d2);
+		o1.addItemListener(this);
+		d1.addItemListener(this);
+		o2.addItemListener(this);
+		d2.addItemListener(this);
+
+
 		b2.setBounds((width * 3 / 4) + 25, 240, 150, 25);
 		frame.add(b2);
 		b2.addActionListener(this);
+
+		b3.setBounds((width * 3 / 4) + 25, 365, 150, 25);
+		frame.add(b3);
+		b3.addActionListener(this);
+
+		b4.setBounds((width * 3 / 4) + 25, 465, 150, 25);
+		frame.add(b4);
+		b4.addActionListener(this);
 
 		l4.setBounds((width * 3 / 4) + 25, 212, 100, 15);
 		frame.add(l4);
@@ -106,6 +146,19 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
     	slider.setLabelTable(table);
 		frame.add(slider);
 		slider.addChangeListener(this);
+
+		l5.setBounds((width * 3 / 4) + 25, 300, 100, 15);
+		l6.setBounds((width * 3 / 4) + 25, 400, 100, 15);
+		l7.setBounds((width * 3 / 4) + 25, 320, 100, 15);
+		l8.setBounds((width * 3 / 4) + 25, 420, 100, 15);
+		l9.setBounds((width * 3 / 4) + 25, 340, 100, 15);
+		l10.setBounds((width * 3 / 4) + 25, 440, 100, 15);
+		frame.add(l5);
+		frame.add(l6);
+		frame.add(l7);
+		frame.add(l8);
+		frame.add(l9);
+		frame.add(l10);
 
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,6 +195,26 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 		if(e.getSource() == b1){
 			Reporte reporte = new Reporte(map);
 		}
+		if(e.getSource() == b3){
+			if(origen1 == destino1){
+				System.out.println("Error: son iguales");
+				return;
+			}
+			Vertice rootNode = map.au.searchVertex(origen1);
+			Vertice findNode = map.au.searchVertex(destino1);
+
+			new Busqueda(map.au.bfs(rootNode, findNode));
+		}
+		if(e.getSource() == b4){
+			if(origen2 == destino2){
+				System.out.println("Error: son iguales");
+				return;
+			}
+			Vertice rootNode = map.au.searchVertex(origen2);
+			Vertice findNode = map.au.searchVertex(destino2);
+
+			new Busqueda(map.au.bfs(rootNode, findNode));
+		}
 	}
 
 	public void stateChanged(ChangeEvent e){
@@ -172,5 +245,19 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
         if (e.getSource() == a) {
             destino = (String) a.getSelectedItem();
         }
+        if (e.getSource() == o1) {
+            origen1 = (String) o1.getSelectedItem();
+        }
+        if (e.getSource() == d1) {
+            destino1 = (String) d1.getSelectedItem();
+        }
+
+        if (e.getSource() == d2) {
+            origen2 = (String) o2.getSelectedItem();
+        }
+        if (e.getSource() == d2) {
+            destino2 = (String) d2.getSelectedItem();
+        }
+
     }
 }
