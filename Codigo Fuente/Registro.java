@@ -44,12 +44,12 @@ public class Registro extends Canvas{
 
 		area3 = new JTextArea();
 		area3.setEditable(false);
-    area3.setText("HORA\n");
+    area3.setText("FECHA\n");
 		panel.add(area3);
 
 		area4 = new JTextArea();
 		area4.setEditable(false);
-    area4.setText("FECHA\n");
+    area4.setText("HORA\n");
 		panel.add(area4);
 
     scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );

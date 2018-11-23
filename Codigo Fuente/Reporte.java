@@ -54,12 +54,12 @@ public class Reporte extends Canvas implements ItemListener, ActionListener{
 
         area2 = new JTextArea();
         area2.setEditable(false);
-        area2.setText("FECHA\n");
+        area2.setText("HORA\n");
         panel.add(area2);
 
         area3 = new JTextArea();
         area3.setEditable(false);
-        area3.setText("HORA\n");
+        area3.setText("FECHA\n");
         panel.add(area3);
 
         l = new JLabel("Mostrar recorrido de auto:");
