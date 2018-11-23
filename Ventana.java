@@ -12,6 +12,13 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import java.util.Hashtable;
 import javax.swing.JComboBox;
+import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import java.io.IOException;
+import java.io.FileInputStream;
+
 
 public class Ventana extends Canvas implements ActionListener, ChangeListener, ItemListener{
 
@@ -67,9 +74,14 @@ public class Ventana extends Canvas implements ActionListener, ChangeListener, I
 		frame.add(b1);
 		b1.addActionListener(this);
 
+		try{
 		image.setBounds(0, 0, (width * 3 / 4), height);
-		image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mapa_prototipo.png")));
+		String imagePath = "images/mapa_prototipo.png";
+		BufferedImage myImg = ImageIO.read(new FileInputStream(imagePath));
+		ImageIcon icon = new ImageIcon(myImg);
+		image.setIcon(icon);
 		frame.add(image);
+		}catch(IOException e){}
 
 		l1.setBounds((width * 3 / 4) + 25, 67, 100, 15);
 		frame.add(l1);
