@@ -51,7 +51,6 @@ public class Mapa extends Canvas implements Runnable{
 			delta += (now - lastTime)/ ns;
 			lastTime = now;
 			while(delta >= 1){
-				tick();
 				delta --;
 			}
 			if (running){
@@ -71,9 +70,6 @@ public class Mapa extends Canvas implements Runnable{
 			}
 		}
 	}
-	private void tick(){
-
-	}
 
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
@@ -86,7 +82,7 @@ public class Mapa extends Canvas implements Runnable{
 
 		BufferedImage img = null;
 		try {
-  			img = ImageIO.read(new File("mapa_prototipo.png"));
+  			img = ImageIO.read(new File("images/mapa_prototipo.png"));
 		}
 		catch (IOException e) {
 		}
